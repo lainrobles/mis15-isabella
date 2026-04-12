@@ -1,0 +1,153 @@
+<!DOCTYPE html><html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Isabella Pucarelli - Mis 15</title>  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">  <style>
+    :root {
+      --rosa: #f8c8dc;
+      --blanco: #ffffff;
+      --dorado: #c9a227;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: var(--blanco);
+      color: #333;
+      text-align: center;
+      overflow-x: hidden;
+    }
+
+    header {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), url('img/portada.jpg');
+      background-size: cover;
+      background-position: center;
+      animation: fadeIn 2s ease;
+    }
+
+    @keyframes fadeIn {
+      from {opacity:0; transform: translateY(20px);} 
+      to {opacity:1; transform: translateY(0);} 
+    }
+
+    h1 {
+      font-family: 'Cinzel', serif;
+      font-size: 3rem;
+      color: var(--dorado);
+    }
+
+    .fecha {
+      font-size: 1.2rem;
+      color: var(--rosa);
+    }
+
+    section {
+      padding: 50px 20px;
+    }
+
+    .galeria img {
+      width: 250px;
+      margin: 10px;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    .contador {
+      font-size: 1.5rem;
+      color: var(--dorado);
+    }
+
+    iframe {
+      width: 90%;
+      height: 300px;
+      border: 0;
+      border-radius: 15px;
+    }
+
+    button {
+      background: var(--dorado);
+      border: none;
+      padding: 12px 25px;
+      border-radius: 25px;
+      color: white;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    footer {
+      background: var(--rosa);
+      color: white;
+      padding: 20px;
+    }
+
+    canvas {
+      position: fixed;
+      top:0;
+      left:0;
+      pointer-events:none;
+    }
+  </style></head><body><canvas id="particles"></canvas>
+
+<audio autoplay loop>
+  <source src="audio/vals.mp3" type="audio/mpeg">
+</audio><header>
+  <h1>Isabella Pucarelli</h1>
+  <div class="fecha">24 de Abril 2026</div>
+</header><section>
+  <h2>Faltan</h2>
+  <div class="contador" id="contador"></div>
+</section><section>
+  <h2>Ubicación</h2>
+  <iframe src="https://www.google.com/maps?q=salon+de+eventos&output=embed"></iframe>
+</section><section class="galeria">
+  <h2>Galería</h2>
+  <img src="img/foto1.jpg">
+  <img src="img/foto2.jpg">
+  <img src="img/foto3.jpg">
+</section><section>
+  <h2>Confirmar asistencia</h2>
+  <button onclick="window.open('https://wa.me/543815755070?text=Confirmo%20asistencia%20al%20evento')">Confirmar por WhatsApp</button>
+</section><footer>
+  <p>Te espero para compartir una noche inolvidable</p>
+</footer><script>
+  // contador
+  const evento = new Date("April 24, 2026 21:00:00").getTime();
+  setInterval(() => {
+    const ahora = new Date().getTime();
+    const diff = evento - ahora;
+    const dias = Math.floor(diff / (1000*60*60*24));
+    const horas = Math.floor((diff % (1000*60*60*24))/(1000*60*60));
+    document.getElementById("contador").innerHTML = dias + " días " + horas + " hs";
+  },1000);
+
+  // partículas simples
+  const canvas = document.getElementById('particles');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  let particles = [];
+  for(let i=0;i<50;i++){
+    particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:2});
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.fillStyle = 'gold';
+    particles.forEach(p=>{
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fill();
+      p.y += 0.5;
+      if(p.y>canvas.height) p.y=0;
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+</script></body>
+</html>
