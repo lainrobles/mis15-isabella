@@ -1,153 +1,262 @@
-<!DOCTYPE html><html lang="es">
+<!DOCTYPE html>
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Isabella Pucarelli - Mis 15</title>  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400&family=Cinzel:wght@400;600&display=swap" rel="stylesheet">  <style>
-    :root {
-      --rosa: #f8c8dc;
-      --blanco: #ffffff;
-      --dorado: #c9a227;
-    }
+  <title>Isabella Pucarelli | Mis 15 Años</title>
 
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: var(--blanco);
-      color: #333;
-      text-align: center;
-      overflow-x: hidden;
-    }
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-    header {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      background: linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), url('img/portada.jpg');
-      background-size: cover;
-      background-position: center;
-      animation: fadeIn 2s ease;
-    }
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="img/butterflies/butterfly1.svg" type="image/svg+xml">
+</head>
+<body>
+  <div id="intro">
+    <div class="intro-content">
+      <p class="intro-subtitle">Estás invitado a celebrar</p>
+      <h1 class="intro-title">Mis 15 Años</h1>
+      <button id="openInvitation" class="btn-gold">
+        Abrir invitación
+      </button>
+    </div>
+  </div>
 
-    @keyframes fadeIn {
-      from {opacity:0; transform: translateY(20px);} 
-      to {opacity:1; transform: translateY(0);} 
-    }
+  <audio id="music" loop>
+    <source src="audio/piano.mp3" type="audio/mpeg">
+  </audio>
 
-    h1 {
-      font-family: 'Cinzel', serif;
-      font-size: 3rem;
-      color: var(--dorado);
-    }
+  <button class="music-toggle" id="musicToggle" type="button" aria-label="Activar o silenciar música" title="Música">
+    <span aria-hidden="true">♪</span>
+  </button>
 
-    .fecha {
-      font-size: 1.2rem;
-      color: var(--rosa);
-    }
+  <main id="mainContent" aria-hidden="true">
 
-    section {
-      padding: 50px 20px;
-    }
+    <header class="hero">
+      <div class="hero-overlay"></div>
 
-    .galeria img {
-      width: 250px;
-      margin: 10px;
-      border-radius: 15px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
+      <img src="img/butterflies/butterfly1.svg" class="butterfly butterfly-1" alt="">
+      <img src="img/butterflies/butterfly2.svg" class="butterfly butterfly-2" alt="">
+      <img src="img/butterflies/butterfly3.svg" class="butterfly butterfly-3" alt="">
+      <img src="img/butterflies/butterfly2.svg" class="butterfly butterfly-4" alt="">
+      <img src="img/butterflies/butterfly1.svg" class="butterfly butterfly-5" alt="">
+      <img src="img/butterflies/butterfly4.svg" class="butterfly butterfly-6" alt="">
+      <img src="img/butterflies/butterfly3.svg" class="butterfly butterfly-7" alt="">
 
-    .contador {
-      font-size: 1.5rem;
-      color: var(--dorado);
-    }
+      <div class="hero-frame">
+        <div class="floral floral-left" aria-hidden="true"></div>
+        <div class="floral floral-right" aria-hidden="true"></div>
 
-    iframe {
-      width: 90%;
-      height: 300px;
-      border: 0;
-      border-radius: 15px;
-    }
+        <div class="hero-content">
+          <p class="hero-subtitle">19 de septiembre de 2026</p>
+          <h1 class="hero-name" data-animate-letters>Isabella Pucarelli</h1>
+          <div class="hero-divider"></div>
+          <p class="hero-text">
+            Hay momentos inolvidables que se atesoran para siempre.<br>
+            Quiero compartir con vos una noche mágica.
+          </p>
+          <a href="#countdown-section" class="hero-button">Descubrir la invitación</a>
+        </div>
+      </div>
+    </header>
 
-    button {
-      background: var(--dorado);
-      border: none;
-      padding: 12px 25px;
-      border-radius: 25px;
-      color: white;
-      cursor: pointer;
-      font-size: 1rem;
-    }
+    <section class="countdown-section reveal" id="countdown-section">
+      <div class="container">
+        <p class="section-subtitle">Faltan</p>
+        <h2 class="section-title">Para mi gran noche</h2>
 
-    footer {
-      background: var(--rosa);
-      color: white;
-      padding: 20px;
-    }
+        <div id="countdown" class="countdown" aria-label="Cuenta regresiva">
+          <div class="count-box">
+            <div class="flip-card"><span id="days" data-value="00">00</span></div>
+            <p>Días</p>
+          </div>
+          <div class="count-box">
+            <div class="flip-card"><span id="hours" data-value="00">00</span></div>
+            <p>Horas</p>
+          </div>
+          <div class="count-box">
+            <div class="flip-card"><span id="minutes" data-value="00">00</span></div>
+            <p>Minutos</p>
+          </div>
+          <div class="count-box">
+            <div class="flip-card"><span id="seconds" data-value="00">00</span></div>
+            <p>Segundos</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    canvas {
-      position: fixed;
-      top:0;
-      left:0;
-      pointer-events:none;
-    }
-  </style></head><body><canvas id="particles"></canvas>
+    <section class="quote-section reveal">
+      <div class="container">
+        <div class="quote-card">
+          <p class="quote">
+            “Que esta noche esté llena de sueños cumplidos,
+            sonrisas sinceras y recuerdos que duren para siempre.”
+          </p>
+        </div>
+      </div>
+    </section>
 
-<audio autoplay loop>
-  <source src="audio/vals.mp3" type="audio/mpeg">
-</audio><header>
-  <h1>Isabella Pucarelli</h1>
-  <div class="fecha">24 de Abril 2026</div>
-</header><section>
-  <h2>Faltan</h2>
-  <div class="contador" id="contador"></div>
-</section><section>
-  <h2>Ubicación</h2>
-  <iframe src="https://www.google.com/maps?q=salon+de+eventos&output=embed"></iframe>
-</section><section class="galeria">
-  <h2>Galería</h2>
-  <img src="img/foto1.jpg">
-  <img src="img/foto2.jpg">
-  <img src="img/foto3.jpg">
-</section><section>
-  <h2>Confirmar asistencia</h2>
-  <button onclick="window.open('https://wa.me/543815755070?text=Confirmo%20asistencia%20al%20evento')">Confirmar por WhatsApp</button>
-</section><footer>
-  <p>Te espero para compartir una noche inolvidable</p>
-</footer><script>
-  // contador
-  const evento = new Date("April 24, 2026 21:00:00").getTime();
-  setInterval(() => {
-    const ahora = new Date().getTime();
-    const diff = evento - ahora;
-    const dias = Math.floor(diff / (1000*60*60*24));
-    const horas = Math.floor((diff % (1000*60*60*24))/(1000*60*60));
-    document.getElementById("contador").innerHTML = dias + " días " + horas + " hs";
-  },1000);
+    <section class="gallery-section reveal">
+      <div class="container">
+        <p class="section-subtitle">Mis recuerdos</p>
+        <h2 class="section-title">Galería</h2>
 
-  // partículas simples
-  const canvas = document.getElementById('particles');
-  const ctx = canvas.getContext('2d');
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+        <div class="gallery-carousel" id="galleryCarousel" aria-label="Galería de fotos">
+          <div class="gallery-track">
+            <figure class="gallery-slide active"><img src="img/foto1.jpg" alt="Recuerdo de Isabella 1"></figure>
+            <figure class="gallery-slide"><img src="img/foto2.jpg" alt="Recuerdo de Isabella 2"></figure>
+            <figure class="gallery-slide"><img src="img/foto3.jpg" alt="Recuerdo de Isabella 3"></figure>
+          </div>
+          <button class="carousel-arrow carousel-prev" type="button" aria-label="Foto anterior">‹</button>
+          <button class="carousel-arrow carousel-next" type="button" aria-label="Foto siguiente">›</button>
+          <div class="carousel-dots" aria-label="Seleccionar fotografía"></div>
+        </div>
+      </div>
+    </section>
 
-  let particles = [];
-  for(let i=0;i<50;i++){
-    particles.push({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:2});
-  }
+    <section class="photo-share-section reveal">
+      <div class="container">
+        <div class="photo-share-card">
+          <div class="photo-share-icon" aria-hidden="true">▣</div>
+          <p class="section-subtitle">Guardemos cada momento</p>
+          <h2 class="section-title">Compartí tus fotos</h2>
+          <p>¿Sacaste una foto o un video durante la fiesta? Ayudame a guardar todos los recuerdos de esta noche.</p>
+          <a class="btn-salmon" id="photoUploadButton" href="#" data-upload-url="">Subir fotos de la fiesta</a>
+          <small>El enlace estará disponible la noche del evento.</small>
+        </div>
+      </div>
+    </section>
 
-  function draw(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    ctx.fillStyle = 'gold';
-    particles.forEach(p=>{
-      ctx.beginPath();
-      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-      ctx.fill();
-      p.y += 0.5;
-      if(p.y>canvas.height) p.y=0;
-    });
-    requestAnimationFrame(draw);
-  }
-  draw();
-</script></body>
+    <section class="location-section reveal">
+      <div class="container">
+        <p class="section-subtitle">Dónde y cuándo</p>
+        <h2 class="section-title">Ubicación</h2>
+
+        <div class="location-card">
+          <h3>Salón de Eventos</h3>
+          <p>Sábado 19 de septiembre de 2026</p>
+          <p>21:00 hs</p>
+
+          <div class="map-container">
+           <iframe title="Mapa de la ubicación del evento" src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3558.9834193032066!2d-65.17687622456185!3d-26.872267876671287!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjbCsDUyJzIwLjIiUyA2NcKwMTAnMjcuNSJX!5e0!3m2!1ses!2sar!4v1785617115131!5m2!1ses!2sar" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          </div>
+
+          <a class="btn-outline"
+             href="https://maps.app.goo.gl/3C2uAYqUE4wEPQtF6"
+             target="_blank" rel="noopener noreferrer">
+            Ver ubicación
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="dress-section reveal">
+      <div class="container">
+        <p class="section-subtitle">Código de vestimenta</p>
+        <h2 class="section-title">Dress Code</h2>
+
+        <div class="dress-card">
+          <div class="dress-icon">✨</div>
+          <h3>Elegante</h3>
+          <p>Me encantará compartir esta noche con tu mejor look.</p>
+          <p class="reserved-colors"><strong>Colores reservados:</strong> natural, marfil, rojo, rosa y salmón.</p>
+          <button class="btn-outline dress-example-button" id="dressExampleButton" type="button">
+            Ver ejemplos de vestimenta
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="gift-section reveal">
+      <div class="container">
+        <p class="section-subtitle">Tu presencia es mi mejor regalo</p>
+        <h2 class="section-title">Mesa de regalos</h2>
+
+        <div class="gift-card">
+          <p>
+            Si deseás hacerme un obsequio,
+            podés colaborar con mi sueño.
+          </p>
+
+          <button class="btn-gold" id="giftButton">
+            Ver datos bancarios
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="rsvp-section reveal">
+      <div class="container">
+        <p class="section-subtitle">Espero contar con tu presencia</p>
+        <h2 class="section-title">Confirmar asistencia</h2>
+
+        <p class="rsvp-text">
+          Por favor confirmá tu asistencia antes del
+          5 de septiembre de 2026.
+        </p>
+
+        <a class="btn-gold"
+           href="https://wa.me/543815755070?text=Hola,%20confirmo%20mi%20asistencia%20a%20los%2015%20de%20Isabella"
+           target="_blank" rel="noopener noreferrer">
+          Confirmar por WhatsApp
+        </a>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-divider"></div>
+        <p>Con mucho amor</p>
+        <h3>Isabella Pucarelli</h3>
+        <p class="footer-date">19 • 09 • 2026</p>
+      </div>
+    </footer>
+
+  </main>
+
+  <dialog class="invitation-modal" id="bankModal" aria-labelledby="bankModalTitle">
+    <button class="modal-close" type="button" data-close-modal aria-label="Cerrar">×</button>
+    <div class="modal-icon" aria-hidden="true">♡</div>
+    <p class="section-subtitle">Datos para transferencia</p>
+    <h2 id="bankModalTitle">Mi regalo</h2>
+    <p class="modal-description">Gracias por acompañarme en este momento tan especial.</p>
+
+    <div class="bank-data">
+      <span>Alias</span>
+      <strong>ISABELLA.PUCARELLI</strong>
+    </div>
+    <div class="bank-data">
+      <span>CBU</span>
+      <strong id="cbuValue">0000000000000000000000</strong>
+    </div>
+
+    <button class="btn-gold copy-cbu-button" id="copyCbuButton" type="button">Copiar CBU</button>
+    <p class="copy-status" id="copyStatus" role="status" aria-live="polite"></p>
+  </dialog>
+
+  <dialog class="invitation-modal dress-modal" id="dressModal" aria-labelledby="dressModalTitle">
+    <button class="modal-close" type="button" data-close-modal aria-label="Cerrar">×</button>
+    <p class="section-subtitle">Inspiración</p>
+    <h2 id="dressModalTitle">Vestimenta elegante</h2>
+    <p class="modal-description">Algunas ideas de looks para compartir esta noche especial.</p>
+    <img src="img/dress-code-example-v2.png" alt="Ejemplo de vestimenta elegante permitida para mujer y varón">
+    <div class="dress-suggestions">
+      <div>
+        <h3>Para mujeres</h3>
+        <p>Vestidos midi o largos, monos elegantes, conjuntos o pantalones de vestir y calzado formal.</p>
+      </div>
+      <div>
+        <h3>Para varones</h3>
+        <p>Traje, pantalón de vestir con saco, camisa con o sin corbata y calzado formal.</p>
+      </div>
+    </div>
+    <div class="reserved-notice">
+      <strong>Por favor evitá:</strong> natural, marfil, rojo, rosa y salmón.
+    </div>
+  </dialog>
+
+  <script src="js/main.js"></script>
+</body>
 </html>
