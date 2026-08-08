@@ -193,7 +193,7 @@ section>.container,.footer>.container{position:relative;z-index:3}
 
 .flying-butterfly{
   position:absolute;left:var(--fly-left,10%);top:var(--fly-top,20%);z-index:2;pointer-events:none;
-  will-change:transform;animation:butterflyPath var(--fly-duration,22s) cubic-bezier(.42,0,.25,1) var(--fly-delay,0s) infinite alternate;
+  will-change:transform;contain:layout paint;animation:butterflyPath var(--fly-duration,22s) cubic-bezier(.42,0,.25,1) var(--fly-delay,0s) infinite alternate;
 }
 .hero>.flying-butterfly{z-index:1}
 .flying-butterfly img{
@@ -219,16 +219,18 @@ section>.container,.footer>.container{position:relative;z-index:3}
 }
 
 @media(max-width:680px){
-  section{padding:84px 0;scroll-margin-top:8px}
+  section{padding:84px 0;scroll-margin-top:8px;content-visibility:auto;contain-intrinsic-size:820px}
   .hero{padding:18px 0;min-height:100svh}.hero-frame{width:94%;min-height:88svh;border-radius:26px}.hero-content{padding:56px 20px}
   .hero-name{font-size:clamp(5.1rem,25vw,7.2rem)}.hero-text{font-size:.95rem}.hero-button{padding:13px 24px}.floral{display:none}
   .motion-left,.motion-right{transform:translateY(45px)}
   .countdown{grid-template-columns:repeat(2,1fr);gap:16px}.flip-card{height:106px}.flip-card span{font-size:3.8rem}
-  .quote-card,.location-card,.dress-card,.gift-card,.photo-share-card{padding:38px 22px}.quote{font-size:1.45rem}
+  .quote-card,.location-card,.dress-card,.gift-card,.photo-share-card{padding:38px 22px;backdrop-filter:none}.quote{font-size:1.45rem}
   .gallery-carousel{padding:0 0 48px}.gallery-track{height:min(500px,112vw);border-radius:22px}.carousel-arrow{top:auto;bottom:0;width:42px;height:42px}.carousel-prev{left:calc(50% - 76px)}.carousel-next{right:calc(50% - 76px)}.carousel-dots{bottom:14px}
   .map-container iframe{height:300px}.music-toggle{right:15px;bottom:15px}
   .invitation-modal{padding:42px 20px 24px;border-radius:22px}.invitation-modal h2{font-size:2.2rem}.dress-suggestions{grid-template-columns:1fr}.dress-modal>img{max-height:44vh}
-  .flying-butterfly img{width:calc(var(--fly-size,80px)*.72)}
+  .flying-butterfly{will-change:auto;animation-duration:calc(var(--fly-duration,22s)*1.25)}
+  .flying-butterfly img{width:calc(var(--fly-size,80px)*.68);filter:drop-shadow(0 4px 7px rgba(156,82,104,.2));animation-duration:calc(var(--flutter-duration,1.15s)*1.35)}
+  .flying-butterfly.soft img{filter:drop-shadow(0 4px 7px rgba(156,82,104,.16))}
   .flying-butterfly.mobile-light{display:none}
 }
 

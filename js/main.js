@@ -172,7 +172,7 @@ decoratedAreas.forEach((area, areaIndex) => {
     const top = 4 + ((seed * 17) % 84);
     const direction = (areaIndex + index) % 2 ? 1 : -1;
 
-    wrapper.className = `flying-butterfly${index % 3 === 0 ? ' mirrored' : ''}${index % 7 === 0 ? ' soft' : ''}${index >= 8 ? ' mobile-light' : ''}`;
+    wrapper.className = `flying-butterfly${index % 3 === 0 ? ' mirrored' : ''}${index % 7 === 0 ? ' soft' : ''}${index >= 4 ? ' mobile-light' : ''}`;
     wrapper.style.setProperty('--fly-left', `${left}%`);
     wrapper.style.setProperty('--fly-top', `${top}%`);
     wrapper.style.setProperty('--fly-size', `${size}px`);
