@@ -88,7 +88,7 @@ window.setInterval(updateCountdown, 1000);
 document.querySelectorAll('main section').forEach((section, sectionIndex) => {
   const subtitle = section.querySelector('.section-subtitle');
   const title = section.querySelector('.section-title');
-  const visual = section.querySelector('.countdown, .quote-card, .gallery-carousel, .photo-share-card, .location-card, .dress-card, .gift-card, .rsvp-text');
+  const visual = section.querySelector('.countdown, .quote-card, .location-card, .dress-card, .gift-card, .rsvp-text');
 
   subtitle?.classList.add('motion-item', sectionIndex % 2 ? 'motion-right' : 'motion-left');
   title?.classList.add('motion-item', sectionIndex % 2 ? 'motion-left' : 'motion-right');
@@ -151,91 +151,52 @@ copyCbuButton?.addEventListener('click', async () => {
   }, 2200);
 });
 
-const photoUploadButton = document.getElementById('photoUploadButton');
-const configuredUploadUrl = photoUploadButton?.dataset.uploadUrl?.trim();
-if (photoUploadButton && configuredUploadUrl) {
-  photoUploadButton.href = configuredUploadUrl;
-  photoUploadButton.target = '_blank';
-  photoUploadButton.rel = 'noopener noreferrer';
-}
-photoUploadButton?.addEventListener('click', (event) => {
-  if (!configuredUploadUrl) {
-    event.preventDefault();
-    alert('El enlace para subir las fotos estará disponible la noche del evento.');
-  }
-});
-
-const carousel = document.getElementById('galleryCarousel');
-if (carousel) {
-  const slides = [...carousel.querySelectorAll('.gallery-slide')];
-  const dotsContainer = carousel.querySelector('.carousel-dots');
-  let currentSlide = 0;
-  let startX = 0;
-  let autoPlay;
-
-  slides.forEach((_, index) => {
-    const dot = document.createElement('button');
-    dot.type = 'button';
-    dot.className = `carousel-dot${index === 0 ? ' active' : ''}`;
-    dot.setAttribute('aria-label', `Ver foto ${index + 1}`);
-    dot.addEventListener('click', () => showSlide(index));
-    dotsContainer.appendChild(dot);
-  });
-
-  const dots = [...dotsContainer.querySelectorAll('.carousel-dot')];
-
-  function showSlide(index) {
-    currentSlide = (index + slides.length) % slides.length;
-    slides.forEach((slide, slideIndex) => slide.classList.toggle('active', slideIndex === currentSlide));
-    dots.forEach((dot, dotIndex) => dot.classList.toggle('active', dotIndex === currentSlide));
-  }
-
-  function restartAutoPlay() {
-    window.clearInterval(autoPlay);
-    autoPlay = window.setInterval(() => showSlide(currentSlide + 1), 4800);
-  }
-
-  carousel.querySelector('.carousel-prev')?.addEventListener('click', () => { showSlide(currentSlide - 1); restartAutoPlay(); });
-  carousel.querySelector('.carousel-next')?.addEventListener('click', () => { showSlide(currentSlide + 1); restartAutoPlay(); });
-  carousel.addEventListener('mouseenter', () => window.clearInterval(autoPlay));
-  carousel.addEventListener('mouseleave', restartAutoPlay);
-  carousel.addEventListener('touchstart', (event) => { startX = event.touches[0].clientX; }, { passive: true });
-  carousel.addEventListener('touchend', (event) => {
-    const distance = event.changedTouches[0].clientX - startX;
-    if (Math.abs(distance) > 45) showSlide(currentSlide + (distance < 0 ? 1 : -1));
-    restartAutoPlay();
-  }, { passive: true });
-  restartAutoPlay();
-}
-
 const guest = new URLSearchParams(window.location.search).get('nombre');
 if (guest) {
   const subtitle = document.querySelector('.hero-subtitle');
   if (subtitle) subtitle.textContent = `Bienvenido, ${guest}`;
 }
 
-const butterflyAssets = ['butterfly1.svg', 'butterfly2.svg', 'butterfly3.svg', 'butterfly4.svg'];
-const decoratedSections = document.querySelectorAll('main section, main footer');
+const butterflyAssets = Array.from({ length: 6 }, (_, index) => `butterfly-pink-${index + 1}.png`);
+const decoratedAreas = document.querySelectorAll('main .hero, main section, main footer');
 
-decoratedSections.forEach((section, sectionIndex) => {
-  const amount = section.matches('.gallery-section, .photo-share-section, .location-section') ? 8 : 6;
+decoratedAreas.forEach((area, areaIndex) => {
+  const amount = area.matches('.hero') ? 16 : area.matches('.footer') ? 9 : 12;
 
   for (let index = 0; index < amount; index += 1) {
     const wrapper = document.createElement('span');
     const butterfly = document.createElement('img');
-    const side = (sectionIndex + index) % 2 ? 'right' : 'left';
+    const seed = areaIndex * 37 + index * 19;
+    const size = 58 + (seed % 7) * 14;
+    const left = 2 + ((seed * 13) % 91);
+    const top = 4 + ((seed * 17) % 84);
+    const direction = (areaIndex + index) % 2 ? 1 : -1;
 
-    wrapper.className = `flying-butterfly ${side}${index > 3 ? ' extra' : ''}${index % 4 === 2 ? ' pink' : ''}${index === 5 ? ' blur' : ''}`;
-    wrapper.style.top = `${10 + ((sectionIndex * 19 + index * 23) % 76)}%`;
-    wrapper.style.setProperty('--fly-size', `${34 + ((sectionIndex + index) % 5) * 7}px`);
-    wrapper.style.setProperty('--fly-opacity', `${0.38 + ((sectionIndex + index) % 4) * 0.09}`);
-    wrapper.style.setProperty('--fly-duration', `${17 + ((sectionIndex * 2 + index) % 10)}s`);
-    wrapper.style.setProperty('--fly-delay', `${-(sectionIndex * 2 + index * 3)}s`);
+    wrapper.className = `flying-butterfly${index % 3 === 0 ? ' mirrored' : ''}${index % 7 === 0 ? ' soft' : ''}${index >= 8 ? ' mobile-light' : ''}`;
+    wrapper.style.setProperty('--fly-left', `${left}%`);
+    wrapper.style.setProperty('--fly-top', `${top}%`);
+    wrapper.style.setProperty('--fly-size', `${size}px`);
+    wrapper.style.setProperty('--fly-opacity', `${0.48 + (seed % 5) * 0.08}`);
+    wrapper.style.setProperty('--fly-duration', `${17 + (seed % 13)}s`);
+    wrapper.style.setProperty('--fly-delay', `${-(seed % 24)}s`);
+    wrapper.style.setProperty('--flutter-duration', `${0.9 + (seed % 7) * 0.11}s`);
+    wrapper.style.setProperty('--flutter-delay', `${-(seed % 5) * 0.16}s`);
+    wrapper.style.setProperty('--start-rotation', `${direction * (4 + seed % 7)}deg`);
+    wrapper.style.setProperty('--end-rotation', `${-direction * (3 + seed % 8)}deg`);
+    wrapper.style.setProperty('--drift-x1', `${direction * (35 + seed % 55)}px`);
+    wrapper.style.setProperty('--drift-y1', `${-(22 + seed % 35)}px`);
+    wrapper.style.setProperty('--drift-x2', `${-direction * (18 + seed % 44)}px`);
+    wrapper.style.setProperty('--drift-y2', `${-(48 + seed % 52)}px`);
+    wrapper.style.setProperty('--drift-x3', `${direction * (48 + seed % 68)}px`);
+    wrapper.style.setProperty('--drift-y3', `${-(20 + seed % 45)}px`);
+    wrapper.style.setProperty('--drift-x4', `${direction * (12 + seed % 62)}px`);
+    wrapper.style.setProperty('--drift-y4', `${-(72 + seed % 65)}px`);
 
-    butterfly.src = `img/butterflies/${butterflyAssets[(sectionIndex + index) % butterflyAssets.length]}`;
+    butterfly.src = `img/butterflies-realistic/${butterflyAssets[(seed + index) % butterflyAssets.length]}`;
     butterfly.alt = '';
     butterfly.setAttribute('aria-hidden', 'true');
+    butterfly.decoding = 'async';
     wrapper.appendChild(butterfly);
-    section.appendChild(wrapper);
+    area.appendChild(wrapper);
   }
 });
