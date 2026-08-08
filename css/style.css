@@ -219,6 +219,11 @@ section>.container,.footer>.container{position:relative;z-index:3}
 }
 
 @media(max-width:680px){
+  #intro{
+    background:
+      linear-gradient(rgba(255,255,255,.2),rgba(255,245,248,.3)),
+      url('../img/portada-mobile.png') center/cover no-repeat;
+  }
   section{padding:84px 0;scroll-margin-top:8px;content-visibility:auto;contain-intrinsic-size:820px}
   .hero{padding:18px 0;min-height:100svh}.hero-frame{width:94%;min-height:88svh;border-radius:26px}.hero-content{padding:56px 20px}
   .hero-name{font-size:clamp(5.1rem,25vw,7.2rem)}.hero-text{font-size:.95rem}.hero-button{padding:13px 24px}.floral{display:none}
