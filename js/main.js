@@ -88,7 +88,7 @@ window.setInterval(updateCountdown, 1000);
 document.querySelectorAll('main section').forEach((section, sectionIndex) => {
   const subtitle = section.querySelector('.section-subtitle');
   const title = section.querySelector('.section-title');
-  const visual = section.querySelector('.countdown, .quote-card, .location-card, .dress-card, .gift-card, .rsvp-text');
+  const visual = section.querySelector('.countdown, .quote-card, .gallery-showcase, .location-card, .dress-card, .gift-card, .rsvp-text');
 
   subtitle?.classList.add('motion-item', sectionIndex % 2 ? 'motion-right' : 'motion-left');
   title?.classList.add('motion-item', sectionIndex % 2 ? 'motion-left' : 'motion-right');
@@ -150,6 +150,77 @@ copyCbuButton?.addEventListener('click', async () => {
     copyCbuButton.textContent = 'Copiar CBU';
   }, 2200);
 });
+
+const gallery = document.getElementById('galleryShowcase');
+if (gallery) {
+  const cards = [...gallery.querySelectorAll('.gallery-card')];
+  const dotsContainer = gallery.querySelector('.gallery-dots');
+  let current = 0;
+  let startX = 0;
+  let autoplay;
+
+  const circularDistance = (index) => {
+    let distance = index - current;
+    if (distance > cards.length / 2) distance -= cards.length;
+    if (distance < -cards.length / 2) distance += cards.length;
+    return distance;
+  };
+
+  cards.forEach((card, index) => {
+    const dot = document.createElement('button');
+    dot.type = 'button';
+    dot.className = 'gallery-dot';
+    dot.setAttribute('aria-label', `Mostrar fotografía ${index + 1}`);
+    dot.addEventListener('click', () => {
+      current = index;
+      renderGallery();
+      restartGalleryAutoplay();
+    });
+    dotsContainer?.appendChild(dot);
+  });
+
+  const dots = [...gallery.querySelectorAll('.gallery-dot')];
+
+  function renderGallery() {
+    cards.forEach((card, index) => {
+      const distance = circularDistance(index);
+      card.classList.remove('is-active', 'is-prev', 'is-next', 'is-far-prev', 'is-far-next');
+      if (distance === 0) card.classList.add('is-active');
+      else if (distance === -1) card.classList.add('is-prev');
+      else if (distance === 1) card.classList.add('is-next');
+      else if (distance < 0) card.classList.add('is-far-prev');
+      else card.classList.add('is-far-next');
+      card.setAttribute('aria-hidden', distance === 0 ? 'false' : 'true');
+    });
+    dots.forEach((dot, index) => dot.classList.toggle('is-active', index === current));
+  }
+
+  function moveGallery(direction) {
+    current = (current + direction + cards.length) % cards.length;
+    renderGallery();
+  }
+
+  function restartGalleryAutoplay() {
+    window.clearInterval(autoplay);
+    autoplay = window.setInterval(() => moveGallery(1), 4200);
+  }
+
+  gallery.querySelector('.gallery-prev')?.addEventListener('click', () => { moveGallery(-1); restartGalleryAutoplay(); });
+  gallery.querySelector('.gallery-next')?.addEventListener('click', () => { moveGallery(1); restartGalleryAutoplay(); });
+  gallery.addEventListener('pointerdown', (event) => { startX = event.clientX; });
+  gallery.addEventListener('pointerup', (event) => {
+    const distance = event.clientX - startX;
+    if (Math.abs(distance) > 42) {
+      moveGallery(distance < 0 ? 1 : -1);
+      restartGalleryAutoplay();
+    }
+  });
+  gallery.addEventListener('mouseenter', () => window.clearInterval(autoplay));
+  gallery.addEventListener('mouseleave', restartGalleryAutoplay);
+
+  renderGallery();
+  restartGalleryAutoplay();
+}
 
 const guest = new URLSearchParams(window.location.search).get('nombre');
 if (guest) {
