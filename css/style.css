@@ -232,7 +232,16 @@ section>.container,.footer>.container{position:relative;z-index:3}
 }
 
 @media(max-width:680px){
-  body::before{background-position:center 45%;background-size:auto 72vh;opacity:.13}
+  body::before{
+    background-position:center 48%;
+    background-size:auto 78vh;
+    opacity:.38;
+    filter:saturate(.9) contrast(1.02);
+  }
+  .countdown-section,.quote-section,.gallery-section,.location-section,.dress-section,.gift-section,.rsvp-section{
+    background:linear-gradient(145deg,rgba(255,250,251,.68),rgba(250,240,243,.62));
+  }
+  section::before{opacity:.58}
   #intro{
     background:
       linear-gradient(rgba(255,255,255,.2),rgba(255,245,248,.3)),
