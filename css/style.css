@@ -23,7 +23,7 @@ body{position:relative;overflow-x:hidden;font-family:'Poppins',sans-serif;color:
 body::before{
   content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
   background:url('../img/fondo-isabella.png') center 48%/auto min(88vh,850px) no-repeat;
-  opacity: 0.9;filter:saturate(.82) contrast(.95);
+  opacity:.9;filter:saturate(.82) contrast(.95);
 }
 button,a{font:inherit}
 .container{width:min(1100px,92%);margin:auto}
@@ -146,7 +146,9 @@ section>.container,.footer>.container{position:relative;z-index:3}
   border:7px solid rgba(255,255,255,.92);border-radius:28px;background:#fff;box-shadow:0 25px 65px rgba(101,57,75,.24);
   opacity:0;transform:translate(-50%,-50%) scale(.55);transition:transform .75s cubic-bezier(.2,.8,.2,1),opacity .55s ease,filter .55s ease;pointer-events:none;
 }
-.gallery-card img{width:100%;height:100%;display:block;object-fit:cover}
+.gallery-card img,.gallery-card video{width:100%;height:100%;display:block;object-fit:cover}
+.gallery-video-card{background:linear-gradient(145deg,#f8e5ea,#e9b8c2)}
+.gallery-video-card video{background:#f3dce2}
 .gallery-card.is-active{z-index:5;opacity:1;transform:translate(-50%,-50%) translateZ(100px) scale(1);filter:none;pointer-events:auto}
 .gallery-card.is-prev{z-index:3;opacity:.64;transform:translate(-50%,-50%) translateX(-72%) rotateY(34deg) scale(.78);filter:saturate(.72)}
 .gallery-card.is-next{z-index:3;opacity:.64;transform:translate(-50%,-50%) translateX(72%) rotateY(-34deg) scale(.78);filter:saturate(.72)}
@@ -181,9 +183,11 @@ section>.container,.footer>.container{position:relative;z-index:3}
 .gift-card p{margin-bottom:28px;line-height:1.7}
 .rsvp-text{max-width:600px;margin-bottom:30px;line-height:1.7}
 
-.footer{position:relative;overflow:hidden;padding:84px 0;text-align:center;background:linear-gradient(145deg,#fff,#f5f5f7)}
+.footer{position:relative;overflow:hidden;padding:84px 0;text-align:center;background:linear-gradient(145deg,rgba(255,255,255,.7),rgba(245,245,247,.68))}
+.footer-card{max-width:720px;margin:auto;padding:48px 42px;border:1px solid rgba(201,164,176,.38);border-radius:30px;background:rgba(255,250,251,.86);box-shadow:0 22px 60px rgba(116,69,88,.18);backdrop-filter:blur(9px)}
 .footer-divider{width:90px;height:1px;margin:0 auto 28px;background:linear-gradient(90deg,transparent,var(--plata-oscuro),transparent)}
 .footer h3{margin:10px 0;font-family:'Allura',cursive;font-size:3.2rem;font-weight:400}.footer-date{color:#85868f;letter-spacing:3px}
+.footer-message{max-width:580px;margin:22px auto 24px;font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-style:italic;line-height:1.55;color:#5d5057}
 
 .invitation-modal{width:min(520px,calc(100% - 30px));max-height:90vh;overflow:auto;padding:46px 38px 38px;border:1px solid rgba(169,170,179,.5);border-radius:28px;color:var(--texto);text-align:center;background:linear-gradient(145deg,#fff,#f5f5f7);box-shadow:0 28px 90px rgba(61,38,49,.25)}
 .invitation-modal::backdrop{background:rgba(45,34,41,.55);backdrop-filter:blur(5px)}
@@ -253,6 +257,7 @@ section>.container,.footer>.container{position:relative;z-index:3}
   .motion-left,.motion-right{transform:translateY(45px)}
   .countdown{grid-template-columns:repeat(2,1fr);gap:16px}.flip-card{height:106px}.flip-card span{font-size:3.8rem}
   .quote-card,.location-card,.dress-card,.gift-card,.photo-share-card{padding:38px 22px;backdrop-filter:none}.quote{font-size:1.45rem}
+  .rsvp-title{font-size:clamp(2.35rem,11.2vw,3.15rem);white-space:nowrap;letter-spacing:-.02em}
   .gallery-showcase{height:520px}.gallery-stage{inset:0 0 62px}.gallery-card{width:min(292px,76vw);height:405px;border-width:5px;border-radius:22px}
   .gallery-card.is-prev{transform:translate(-50%,-50%) translateX(-48%) rotateY(31deg) scale(.72)}
   .gallery-card.is-next{transform:translate(-50%,-50%) translateX(48%) rotateY(-31deg) scale(.72)}
@@ -260,6 +265,7 @@ section>.container,.footer>.container{position:relative;z-index:3}
   .gallery-nav{top:auto;bottom:2px;width:43px;height:43px}.gallery-prev{left:calc(50% - 82px)}.gallery-next{right:calc(50% - 82px)}.gallery-dots{bottom:18px}
   .map-container iframe{height:300px}.music-toggle{right:15px;bottom:15px}
   .invitation-modal{padding:42px 20px 24px;border-radius:22px}.invitation-modal h2{font-size:2.2rem}.dress-suggestions{grid-template-columns:1fr}.dress-modal>img{max-height:44vh}
+  .footer-card{width:94%;padding:38px 20px;border-radius:24px;backdrop-filter:none}.footer-message{font-size:1.18rem}
   .flying-butterfly{will-change:auto;animation-duration:calc(var(--fly-duration,22s)*1.25)}
   .flying-butterfly img{width:calc(var(--fly-size,80px)*.68);filter:drop-shadow(0 4px 7px rgba(156,82,104,.2));animation-duration:calc(var(--flutter-duration,1.15s)*1.35)}
   .flying-butterfly.soft img{filter:drop-shadow(0 4px 7px rgba(156,82,104,.16))}

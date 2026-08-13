@@ -98,12 +98,18 @@
 
         <div class="gallery-showcase" id="galleryShowcase" aria-label="Galería de fotografías de Isabella">
           <div class="gallery-stage">
-            <figure class="gallery-card"><img src="img/galeria/foto1.jpeg" alt="Fotografía de Isabella 1"></figure>
+            
             <figure class="gallery-card"><img src="img/galeria/foto2.jpeg" alt="Fotografía de Isabella 2"></figure>
-            <figure class="gallery-card"><img src="img/galeria/foto3.jpeg" alt="Fotografía de Isabella 3"></figure>
+            
             <figure class="gallery-card"><img src="img/galeria/foto4.jpeg" alt="Fotografía de Isabella 4"></figure>
             <figure class="gallery-card"><img src="img/galeria/foto5.jpeg" alt="Fotografía de Isabella 5"></figure>
             <figure class="gallery-card"><img src="img/galeria/foto6.jpeg" alt="Fotografía de Isabella 6"></figure>
+            <figure class="gallery-card gallery-video-card">
+              <video controls preload="metadata" poster="img/galeria/video-portada.jpeg" playsinline>
+                <source src="video/video1.mp4" type="video/mp4">
+                Tu navegador no puede reproducir este video.
+              </video>
+            </figure>
           </div>
 
           <button class="gallery-nav gallery-prev" type="button" aria-label="Fotografía anterior">‹</button>
@@ -121,7 +127,7 @@
         <div class="location-card">
           <h3>Salón de Eventos</h3>
           <p>Sábado 19 de septiembre de 2026</p>
-          <p>21:00 hs</p>
+          <p>22:00 hs</p>
 
           <div class="map-container">
            <iframe title="Mapa de la ubicación del evento" src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3558.9834193032066!2d-65.17687622456185!3d-26.872267876671287!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjbCsDUyJzIwLjIiUyA2NcKwMTAnMjcuNSJX!5e0!3m2!1ses!2sar!4v1785617115131!5m2!1ses!2sar" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
@@ -145,7 +151,7 @@
           <div class="dress-icon">✨</div>
           <h3>Elegante</h3>
           <p>Me encantará compartir esta noche con tu mejor look.</p>
-          <p class="reserved-colors"><strong>Colores reservados:</strong> natural, marfil, rojo, rosa y salmón.</p>
+          <p class="reserved-colors"><strong>Colores reservados:</strong> natural,beige y rojo.</p>
           <button class="btn-outline dress-example-button" id="dressExampleButton" type="button">
             Ver ejemplos de vestimenta
           </button>
@@ -174,7 +180,7 @@
     <section class="rsvp-section reveal">
       <div class="container">
         <p class="section-subtitle">Espero contar con tu presencia</p>
-        <h2 class="section-title">Confirmar asistencia</h2>
+        <h2 class="section-title rsvp-title">Confirmar asistencia</h2>
 
         <p class="rsvp-text">
           Por favor confirmá tu asistencia antes del
@@ -182,7 +188,7 @@
         </p>
 
         <a class="btn-gold"
-           href="https://wa.me/543815755070?text=Hola,%20confirmo%20mi%20asistencia%20a%20los%2015%20de%20Isabella"
+           href="https://wa.me/543813933703?text=Hola,%20confirmo%20mi%20asistencia%20a%20los%2015%20de%20Isabella"
            target="_blank" rel="noopener noreferrer">
           Confirmar por WhatsApp
         </a>
@@ -191,10 +197,12 @@
 
     <footer class="footer">
       <div class="container">
-        <div class="footer-divider"></div>
-        <p>Con mucho amor</p>
-        <h3>Isabella</h3>
-        <p class="footer-date">19 • 09 • 2026</p>
+        <div class="footer-card">
+          <div class="footer-divider"></div>
+          <p class="footer-message">“Espero que juntos hagamos de esta noche un recuerdo para toda la vida.”</p>
+      <h3>Isabella</h3>
+          <p class="footer-date">19 • 09 • 2026</p>
+        </div>
       </div>
     </footer>
 
@@ -209,11 +217,11 @@
 
     <div class="bank-data">
       <span>Alias</span>
-      <strong>ISABELLA.PUCARELLI</strong>
+      <strong>isabella.095.cero.mp</strong>
     </div>
     <div class="bank-data">
       <span>CBU</span>
-      <strong id="cbuValue">4530000800012439150252</strong>
+      <strong id="cbuValue">0000003100044499206961</strong>
     </div>
 
     <button class="btn-gold copy-cbu-button" id="copyCbuButton" type="button">Copiar CBU</button>
@@ -237,7 +245,7 @@
       </div>
     </div>
     <div class="reserved-notice">
-      <strong>Por favor evitá:</strong> natural, marfil, rojo, rosa y salmón.
+      <strong>Por favor evitá:</strong> natural,beige y rojo.
     </div>
   </dialog>
 

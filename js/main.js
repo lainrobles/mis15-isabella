@@ -170,7 +170,7 @@ if (gallery) {
     const dot = document.createElement('button');
     dot.type = 'button';
     dot.className = 'gallery-dot';
-    dot.setAttribute('aria-label', `Mostrar fotografía ${index + 1}`);
+    dot.setAttribute('aria-label', `Mostrar elemento ${index + 1} de la galería`);
     dot.addEventListener('click', () => {
       current = index;
       renderGallery();
@@ -191,6 +191,7 @@ if (gallery) {
       else if (distance < 0) card.classList.add('is-far-prev');
       else card.classList.add('is-far-next');
       card.setAttribute('aria-hidden', distance === 0 ? 'false' : 'true');
+      if (distance !== 0) card.querySelector('video')?.pause();
     });
     dots.forEach((dot, index) => dot.classList.toggle('is-active', index === current));
   }
@@ -202,6 +203,8 @@ if (gallery) {
 
   function restartGalleryAutoplay() {
     window.clearInterval(autoplay);
+    const activeVideo = cards[current]?.querySelector('video');
+    if (activeVideo && !activeVideo.paused) return;
     autoplay = window.setInterval(() => moveGallery(1), 4200);
   }
 
@@ -217,6 +220,11 @@ if (gallery) {
   });
   gallery.addEventListener('mouseenter', () => window.clearInterval(autoplay));
   gallery.addEventListener('mouseleave', restartGalleryAutoplay);
+  gallery.querySelectorAll('video').forEach((video) => {
+    video.addEventListener('play', () => window.clearInterval(autoplay));
+    video.addEventListener('pause', restartGalleryAutoplay);
+    video.addEventListener('ended', restartGalleryAutoplay);
+  });
 
   renderGallery();
   restartGalleryAutoplay();
