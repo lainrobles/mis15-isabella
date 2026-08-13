@@ -181,20 +181,55 @@ if (gallery) {
 
   const dots = [...gallery.querySelectorAll('.gallery-dot')];
 
-  function renderGallery() {
-    cards.forEach((card, index) => {
-      const distance = circularDistance(index);
-      card.classList.remove('is-active', 'is-prev', 'is-next', 'is-far-prev', 'is-far-next');
-      if (distance === 0) card.classList.add('is-active');
-      else if (distance === -1) card.classList.add('is-prev');
-      else if (distance === 1) card.classList.add('is-next');
-      else if (distance < 0) card.classList.add('is-far-prev');
-      else card.classList.add('is-far-next');
-      card.setAttribute('aria-hidden', distance === 0 ? 'false' : 'true');
-      if (distance !== 0) card.querySelector('video')?.pause();
-    });
-    dots.forEach((dot, index) => dot.classList.toggle('is-active', index === current));
-  }
+ function renderGallery() {
+  cards.forEach((card, index) => {
+    const distance = circularDistance(index);
+    const video = card.querySelector('video');
+
+    card.classList.remove(
+      'is-active',
+      'is-prev',
+      'is-next',
+      'is-far-prev',
+      'is-far-next'
+    );
+
+    if (distance === 0) {
+      card.classList.add('is-active');
+    } else if (distance === -1) {
+      card.classList.add('is-prev');
+    } else if (distance === 1) {
+      card.classList.add('is-next');
+    } else if (distance < 0) {
+      card.classList.add('is-far-prev');
+    } else {
+      card.classList.add('is-far-next');
+    }
+
+    card.setAttribute('aria-hidden', distance === 0 ? 'false' : 'true');
+
+    if (video) {
+      if (distance === 0) {
+        window.clearInterval(autoplay);
+
+        video.muted = true;
+        video.playsInline = true;
+        video.currentTime = 0;
+
+        video.play().catch(() => {
+          console.log('El navegador bloqueó la reproducción automática.');
+        });
+      } else {
+        video.pause();
+        video.currentTime = 0;
+      }
+    }
+  });
+
+  dots.forEach((dot, index) => {
+    dot.classList.toggle('is-active', index === current);
+  });
+}
 
   function moveGallery(direction) {
     current = (current + direction + cards.length) % cards.length;
@@ -220,11 +255,27 @@ if (gallery) {
   });
   gallery.addEventListener('mouseenter', () => window.clearInterval(autoplay));
   gallery.addEventListener('mouseleave', restartGalleryAutoplay);
-  gallery.querySelectorAll('video').forEach((video) => {
-    video.addEventListener('play', () => window.clearInterval(autoplay));
-    video.addEventListener('pause', restartGalleryAutoplay);
-    video.addEventListener('ended', restartGalleryAutoplay);
+ gallery.querySelectorAll('video').forEach((video) => {
+  video.muted = true;
+  video.playsInline = true;
+
+  video.addEventListener('play', () => {
+    window.clearInterval(autoplay);
   });
+
+  video.addEventListener('pause', () => {
+    const videoCard = video.closest('.gallery-card');
+
+    if (!videoCard?.classList.contains('is-active')) {
+      restartGalleryAutoplay();
+    }
+  });
+
+  video.addEventListener('ended', () => {
+    moveGallery(1);
+    restartGalleryAutoplay();
+  });
+});
 
   renderGallery();
   restartGalleryAutoplay();
